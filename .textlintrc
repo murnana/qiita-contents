@@ -1,0 +1,24 @@
+{
+  "filters": {
+    "comments": true,
+    "allowlist": {
+        "allow": [
+            ":::",
+            "/:::details\\s.*/",
+        ]
+    }
+  },
+  "rules": {
+      "preset-japanese": {
+        "sentence-length": false
+      },
+      "preset-jtf-style": {
+        "3.1.1.全角文字と半角文字の間": false,
+        "4.2.7.コロン(：)": false,
+        "4.3.1.丸かっこ（）": false,
+      },
+      "preset-ja-technical-writing": {
+        "sentence-length": false
+      }
+    }
+}
