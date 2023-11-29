@@ -1,0 +1,8 @@
+{
+    "recommendations": [
+        "ms-vscode-remote.remote-containers",
+        "github.vscode-github-actions",
+        "github.vscode-pull-request-github",
+        "yzhang.markdown-all-in-one"
+    ]
+}
