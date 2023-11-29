@@ -6,10 +6,9 @@ on:
       - main
     paths:
       - '.github/workflows/proofreading.yml'
-      - '**.md'
+      - 'public/**.md'
       - 'package.json'
       - 'package-lock.json'
-  workflow_dispatch:
 
 # Only cancel in-progress jobs or runs for the current workflow
 concurrency: 

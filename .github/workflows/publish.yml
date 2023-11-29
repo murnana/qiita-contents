@@ -5,19 +5,24 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:
-
-permissions:
-  contents: write
+    paths:
+      - 'public/**.md'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: false
 
+permissions: {}
+
 jobs:
   publish_articles:
+    name: Publish articles
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     timeout-minutes: 5
+    environment: production
+
     steps:
       - uses: actions/checkout@v4
         with:
