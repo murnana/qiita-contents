@@ -1,0 +1,33 @@
+# Please set 'QIITA_TOKEN' secret to your repository
+name: Publish articles
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'public/**.md'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions: {}
+
+jobs:
+  publish_articles:
+    name: Publish articles
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    timeout-minutes: 5
+    environment: production
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: increments/qiita-cli/actions/publish@v1
+        with:
+          qiita-token: ${{ secrets.QIITA_TOKEN }}
+          root: "."

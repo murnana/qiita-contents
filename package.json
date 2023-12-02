@@ -1,0 +1,27 @@
+{
+  "name": "qiita-contents",
+  "version": "0.0.1",
+  "description": "",
+  "scripts": {
+    "test": "textlint \"./public/*.md\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/murnana/qiita-contents.git"
+  },
+  "author": "Murnana",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/murnana/qiita-contents/issues"
+  },
+  "homepage": "https://github.com/murnana/qiita-contents#readme",
+  "devDependencies": {
+    "@qiita/qiita-cli": "^1.3.0",
+    "textlint": "^13.4.1",
+    "textlint-filter-rule-allowlist": "^4.0.0",
+    "textlint-filter-rule-comments": "^1.2.2",
+    "textlint-rule-preset-ja-technical-writing": "^8.0.0",
+    "textlint-rule-preset-japanese": "^8.0.0",
+    "textlint-rule-preset-jtf-style": "^2.3.13"
+  }
+}
