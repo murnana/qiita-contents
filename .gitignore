@@ -1,2 +1,5 @@
 .remote
 node_modules
+
+# Qiita CLI configuration (contains API token)
+.qiita-config/
