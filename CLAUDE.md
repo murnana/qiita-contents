@@ -52,3 +52,8 @@ Qiita CLIを使用して技術記事を管理・公開するQiitaコンテンツ
 - textlintの設定はQiitaのMarkdown拡張機能に特化して調整済み
 - mainブランチへの公開は自動実行されるため、直接プッシュには注意
 - プレビューサーバーはデフォルトでポート8888で実行（qiita.config.jsonで設定可能）
+- Qiitaの利用規約については https://qiita.com/terms を参照
+- Qiitaのコミュニティガイドラインについては https://help.qiita.com/ja/articles/qiita-community-guideline を参照
+- QiitaのMarkdown記法については https://qiita.com/Qiita/items/c686397e4a0f4f11683d を参照
+- Qiitaで埋め込み可能なコンテンツは https://qiita.com/Qiita/items/612e2e149b9f9451c144 を参照
+- Qiita CLIについては https://github.com/increments/qiita-cli を参照
