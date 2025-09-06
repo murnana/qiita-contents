@@ -4,15 +4,22 @@
 	"name": "Node.js & TypeScript",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
 	"image": "mcr.microsoft.com/devcontainers/typescript-node:1-20-bullseye",
+	"postCreateCommand":  "npm install -g npm@11.6.0 && npm install -g @anthropic-ai/claude-code && npm install --save-dev",
 	"customizations": {
 		"vscode": {
 			"extensions": [
 				"yzhang.markdown-all-in-one",
 				"github.vscode-github-actions",
-				"GitHub.vscode-pull-request-github"
+				"GitHub.vscode-pull-request-github",
+				"Anthropic.claude-code"
 			]
 		}
-	}
+	},
+
+	// Persist Qiita CLI config across container rebuilds
+	"mounts": [
+		"source=${localWorkspaceFolder}/.qiita-config,target=/home/node/.config/qiita-cli,type=bind,consistency=cached"
+	]
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
