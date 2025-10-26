@@ -16,7 +16,7 @@
   },
   "homepage": "https://github.com/murnana/qiita-contents#readme",
   "devDependencies": {
-    "@anthropic-ai/claude-code": "^1.0.108",
+    "@anthropic-ai/claude-code": "^1.0.111",
     "@qiita/qiita-cli": "^1.6.2",
     "textlint": "^13.4.1",
     "textlint-filter-rule-allowlist": "^4.0.0",
