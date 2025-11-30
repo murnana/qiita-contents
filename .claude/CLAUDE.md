@@ -46,6 +46,22 @@ Qiita content management repository for managing and publishing technical articl
 - `textlint` with Japanese presets: Text linting for Japanese technical content
 - `@anthropic-ai/claude-code`: Claude Code integration
 
+### Image Management
+- Images organized per-article in `assets/{article-slug}/` directory
+- `sources/` subdirectory: Original editable assets (draw.io, raw screenshots)
+- `images/` subdirectory: Optimized, publish-ready images (PNG, WebP, JPEG)
+- Both sources and optimized images are tracked in Git
+- Upload logs stored in `docs/development/asset-management/logs/{article-slug}.md`
+
+#### Image Workflow
+1. Create source images in `assets/{article-slug}/sources/`
+2. Optimize images to `assets/{article-slug}/images/` (manual ffmpeg)
+3. Upload to Qiita web interface (https://qiita.com/settings/images)
+4. Record upload info in `docs/development/asset-management/logs/{article-slug}.md`
+5. Reference Qiita URL in article markdown with Japanese alt text
+
+See docs/development/asset-management/README.md for detailed instructions.
+
 ## Important Notes
 
 - All article content in Japanese, following Japanese technical writing conventions

@@ -3,3 +3,8 @@ node_modules
 
 # Qiita CLI configuration (contains API token)
 .qiita-config/
+
+# Temporary image processing files
+assets/**/*.tmp
+assets/**/*.temp
+assets/**/.DS_Store
