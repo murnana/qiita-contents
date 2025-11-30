@@ -4,7 +4,22 @@
 	"name": "Node.js & TypeScript",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
 	"image": "mcr.microsoft.com/devcontainers/typescript-node:1-20-bullseye",
+
+	// Persist Qiita CLI config across container rebuilds
+	"mounts": [
+		"source=${localWorkspaceFolder}/.qiita-config,target=/home/node/.config/qiita-cli,type=bind,consistency=cached"
+	],
+
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	// "features": {},
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	"forwardPorts": [8888],
+
+	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand":  "npm install -g npm@11.6.0 && npm install -g @anthropic-ai/claude-code && npm install --save-dev",
+
+	// Configure tool-specific properties.
 	"customizations": {
 		"vscode": {
 			"extensions": [
@@ -14,24 +29,7 @@
 				"Anthropic.claude-code"
 			]
 		}
-	},
-
-	// Persist Qiita CLI config across container rebuilds
-	"mounts": [
-		"source=${localWorkspaceFolder}/.qiita-config,target=/home/node/.config/qiita-cli,type=bind,consistency=cached"
-	]
-
-	// Features to add to the dev container. More info: https://containers.dev/features.
-	// "features": {},
-
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
-
-	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "yarn install",
-
-	// Configure tool-specific properties.
-	// "customizations": {},
+	}
 
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
 	// "remoteUser": "root"
