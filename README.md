@@ -67,11 +67,33 @@ qiita-contents/
 │   ├── publish.yml       # Auto-publish to Qiita on main branch
 │   └── proofreading.yml  # PR text proofreading with reviewdog
 ├── .devcontainer/        # DevContainer configuration
+├── assets/               # Article images and source files
+│   └── {article-slug}/
+│       ├── sources/      # Original editable assets
+│       └── images/       # Optimized publish-ready images
+├── docs/                 # Documentation
+│   └── development/
+│       └── asset-management/
+│           ├── README.md # Image management guide
+│           └── logs/     # Image upload logs
 ├── public/               # Article content (Markdown files)
 ├── .textlintrc          # textlint configuration
 ├── qiita.config.json    # Qiita CLI configuration
 └── package.json         # Project dependencies
 ```
+
+## Image Management
+
+Images are organized per-article in the `assets/` directory. Both source files and optimized images are tracked in Git.
+
+**Workflow:**
+1. Create source images (draw.io diagrams, screenshots) in `assets/{article-slug}/sources/`
+2. Optimize images using ffmpeg to `assets/{article-slug}/images/`
+3. Manually upload to Qiita via web interface
+4. Record upload info in `docs/development/asset-management/logs/{article-slug}.md`
+5. Reference returned Qiita URLs in article markdown
+
+See [docs/development/asset-management/README.md](docs/development/asset-management/README.md) for detailed instructions.
 
 ## Article Format
 

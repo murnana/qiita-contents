@@ -4,34 +4,30 @@
 	"name": "Node.js & TypeScript",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
 	"image": "mcr.microsoft.com/devcontainers/typescript-node:1-20-bullseye",
-	"postCreateCommand":  "npm install -g npm@11.6.0 && npm install -g @anthropic-ai/claude-code && npm install --save-dev",
-	"customizations": {
-		"vscode": {
-			"extensions": [
-				"yzhang.markdown-all-in-one",
-				"github.vscode-github-actions",
-				"GitHub.vscode-pull-request-github",
-				"Anthropic.claude-code"
-			]
-		}
-	},
 
 	// Persist Qiita CLI config across container rebuilds
 	"mounts": [
 		"source=${localWorkspaceFolder}/.qiita-config,target=/home/node/.config/qiita-cli,type=bind,consistency=cached"
-	]
+	],
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
+	"forwardPorts": [8888],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "yarn install",
+	"postCreateCommand": "npm install --save-dev",
 
 	// Configure tool-specific properties.
-	// "customizations": {},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"yzhang.markdown-all-in-one",
+				"3w36zj6.textlint"
+			]
+		}
+	}
 
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
 	// "remoteUser": "root"

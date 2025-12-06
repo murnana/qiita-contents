@@ -1,7 +1,17 @@
 {
   "includeCoAuthoredBy": true,
   "permissions": {
-    "disableBypassPermissionsMode": "disable"
+    "disableBypassPermissionsMode": "disable",
+      "allow": [
+        "Bash(git log:*)",
+        "Bash(git status:*)",
+        "Bash(git diff:*)",
+        "Bash(npx qiita --help:*)"
+      ],
+      "ask": [],
+      "deny": [
+        "Read(**/.qiita-config/credentials.json)"
+      ]
   },
   "disableAllHooks": true,
   "enableAllProjectMcpServers": false
