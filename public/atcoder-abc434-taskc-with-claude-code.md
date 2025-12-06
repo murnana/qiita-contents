@@ -3,6 +3,7 @@ title: AtCoder ABC434 C問題をClaude Codeと学ぶ
 tags:
   - 'AtCoder'
   - 'C#'
+  - 'ClaudeCode'
 private: false
 updated_at: ''
 id: null
@@ -16,8 +17,7 @@ ignorePublish: false
 
 <details><summary>記事を書いた経緯</summary>
 
-自分が理解したのか?を確認するためには、自分の言葉に直して解説してみるのが一番良いと思ったために書いています。
-今後もやるかも、やらないかもしれません。気分次第です。
+自分が理解したのかを確認するためには、自分の言葉に直して解説してみるのが一番良いと思ったために書いています。
 </details>
 
 
@@ -40,10 +40,10 @@ https://github.com/murnana/AtCoder/blob/5189e1ce27fb69a1360d94ef9a560e2c2fdb5820
 拾ってきた情報はマークダウンファイルにしてくれます。
 これはClaude Codeの仕組み上、サブエージェントが知っている情報は他のサブエージェントに知らせることができないため、英語になっているのは単にトークンの消費量を減らすためです。
 
-今回は 「abc434の解けなかった問題について勉強したいです。まずは問題Cの解説をお願いします」 というプロンプトでお願いしたため、問題文の分析しかしませんでした。
+今回は「abc434の解けなかった問題について勉強したいです。まずは問題Cの解説をお願いします」というプロンプトでお願いしたため、問題文の分析しかしませんでした。
 C#でも書いてほしかったので、この後やります。
 
-<details><summary>分析後に帰ってきた返答</summary>
+<details><summary>分析後の返答</summary>
 
 > ABC434のC問題「Flapping Takahashi」の解説が完了しました。 ✶ Insight ───────────────────────────────────── 区間追跡アルゴリズムの本質
 > 具体的な経路を構築せず、「到達可能な高度の範囲」を追跡
@@ -215,6 +215,7 @@ internal sealed class Program
 ```
 
 Claude Code:
+<!-- textlint-disable -->
 > C#での実装が完了しました！ ✶ Insight ───────────────────────────────────── **区間の拡大と縮小のバランス**
 > 時間経過で区間を拡大: [L-delta, U+delta]
 > 制約で区間を縮小: Max(L, constraint), Min(U, constraint)
@@ -251,13 +252,16 @@ Claude Code:
 > 1. アーカイブ: AC後にcsharp-upsolving-archiverエージェントで保存
 
 > 実装を確認したい箇所や、質問はありますか？
+<!-- textlint-enable -->
 </details>
 
 調べたところ、そもそもテストケースが違っていました。
 そのため、テストケースを直したら同じ回答になりました。
 
 提出したコードはこちらです。
+<!-- textlint-disable ja-technical-writing/ja-unnatural-alphabet -->
 [提出 #71351987 - Ｓｋｙ株式会社プログラミングコンテスト2025（AtCoder Beginner Contest 434）](https://atcoder.jp/contests/abc434/submissions/71351987)
+<!-- textlint-enable ja-technical-writing/ja-unnatural-alphabet -->
 
 コードが出そろったので、自分なりに解説してみます。
 
@@ -282,25 +286,47 @@ Claude Code:
 ### どう解くのか
 
 初期の高さ `H` から、次の高さは `t` 秒後、 `l` ~ `u` の間のどこかに風船がいなければなりません。
-そこで、風船が 「1秒ごとに `1` 上下できる」ということを利用して、 **風船が `t` 秒後どの範囲を移動できるか** を計算します。
+そこで、風船が「1秒ごとに `1` 上下できる」ということを利用して、 **風船が `t` 秒後どの範囲を移動できるか** を計算します。
 
-風船が `t` 秒間で移動できる中で、
-一番低いところの範囲が `L`、
-一番高いところが `U` とすると、
-ステージの一番最初は 0秒後なので、初期値は以下になります。
+プログラムでは、風船が移動時間(`t - prevTime`)の中で移動できる、
+一番高いところを `U`、一番低いところを `L` としています。
 
-https://github.com/murnana/AtCoder/blob/b39c91125bfdd46b878e2df3995dacce0a4bdb8c/contests/abc434/upsolving/C.cs#L56-L58
+最初に障害物のことは考えず、風船が移動時間中に移動できる範囲を計算します。
 
-そして、次の障害物までの移動時間は以下になります。
+![abc434-taskc-answer-LandU.gif](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/78179/35d30501-bde6-48ee-9c35-0961773af8b6.gif)
 
-https://github.com/murnana/AtCoder/blob/b39c91125bfdd46b878e2df3995dacce0a4bdb8c/contests/abc434/upsolving/C.cs#L73
+https://github.com/murnana/AtCoder/blob/b39c91125bfdd46b878e2df3995dacce0a4bdb8c/contests/abc434/upsolving/C.cs#L71-L79
 
-移動時間が判明したら、その秒数で移動できる範囲を割り出せます。
+その後、移動できる範囲を障害物に合わせて計算しなおします。
 
-https://github.com/murnana/AtCoder/blob/b39c91125bfdd46b878e2df3995dacce0a4bdb8c/contests/abc434/upsolving/C.cs#L78-L79
+![abc434-taskc-answer-LandUbutLimit.gif](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/78179/32e7e943-0a3d-4039-8043-8c513c7cee93.gif)
 
-最後に、一番低い移動可能な範囲と障害物をクリアするための値、
-一番高い移動可能な範囲と障害物をクリアするまでの値を計算します。
+https://github.com/murnana/AtCoder/blob/b39c91125bfdd46b878e2df3995dacce0a4bdb8c/contests/abc434/upsolving/C.cs#L81-L88
 
-一番低い移動可能な範囲と障害物をクリアするための値は、その中で大きいほうが優先されます。
-一番高い移動可能な範囲と障害物をクリアするまでの値は、その中で小さいほうが優先されます。
+最終的に、一番高いところと低いところの範囲を見たときに範囲が存在しない状態（`L > U`）になっていないかを確認します。
+
+そして、次の時間帯になった時、風船が移動できる範囲から再び高いところ、低いところを計算していきます。
+
+これが全て通過可能になったら (つまり、常に範囲内であれば)クリアとなります。
+
+#### 範囲内の逆、範囲が存在しないことについて ( `L > U` )
+
+移動できる範囲を障害物に合わせる段階では、以下のことを行っています。
+
+まず、風船が移動できる範囲で、一番高いところを探します。
+障害物に当たる場合は、障害物の高さまでが限界となります。
+
+![abc434-taskc-answer-LandUbutLimitUp.gif](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/78179/840abc89-1aeb-47a9-b823-89bd6b077851.gif)
+
+一番低いところも同様です。
+
+![abc434-taskc-answer-LandUbutLimitDown.gif](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/78179/6341ddac-8315-4721-87be-35455a8bcb92.gif)
+
+結果、図のように一番高いところと一番低いところの値が逆転し、風船が通れない状態になります。
+
+![abc434-taskc-answer-LandUbutLimitResult.gif](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/78179/07f76d26-c036-49c6-954b-1da9afbe7483.gif)
+
+## まとめ
+AtCoder ABCのC問題について、Claude Codeを使いながら図に起こして学習しました。
+
+わからなかったら図にするのは大事ですね。
