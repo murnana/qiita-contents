@@ -13,11 +13,13 @@
 			"detail": "install dependencies from package",
 			"type": "npm",
 			"script": "install",
-			"group": {
-				"kind": "build",
-				"isDefault": true
-			},
-			"problemMatcher": [],
+			"problemMatcher": []
+		},
+		{
+			"label": "npm: test",
+			"type": "npm",
+			"script": "test",
+			"problemMatcher": []
 		},
 		{
 			"label": "Qiita: 新しい記事を追加",
@@ -27,8 +29,21 @@
 			"args": [
 				"qiita",
 				"new",
-				"${input:qiitaArticleBaseName}"
-			]
+				"${input:qiitaArticleBaseName}",
+				"--verbose"
+			],
+			"problemMatcher": []
+		},
+		{
+			"label": "Qiita: 記事のプレビュー",
+			"type": "process",
+			"command": "npx",
+			"args": [
+				"qiita",
+				"preview",
+				"--verbose"
+			],
+			"problemMatcher": []
 		}
 	]
 }

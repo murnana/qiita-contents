@@ -5,7 +5,8 @@
       "allow": [
         "Bash(git log:*)",
         "Bash(git status:*)",
-        "Bash(git diff:*)"
+        "Bash(git diff:*)",
+        "Bash(npx qiita --help:*)"
       ],
       "ask": [],
       "deny": [

@@ -17,16 +17,14 @@
 	"forwardPorts": [8888],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand":  "npm install -g npm@11.6.0 && npm install -g @anthropic-ai/claude-code && npm install --save-dev",
+	"postCreateCommand": "npm install --save-dev",
 
 	// Configure tool-specific properties.
 	"customizations": {
 		"vscode": {
 			"extensions": [
 				"yzhang.markdown-all-in-one",
-				"github.vscode-github-actions",
-				"GitHub.vscode-pull-request-github",
-				"Anthropic.claude-code"
+				"3w36zj6.textlint"
 			]
 		}
 	}
