@@ -1,0 +1,34 @@
+{
+	"version": "2.0.0",
+	"inputs": [
+		{
+			"id": "qiitaArticleBaseName",
+			"type": "promptString",
+			"description": "artcile slug name"
+		},
+	],
+	"tasks": [
+		{
+			"label": "npm: install",
+			"detail": "install dependencies from package",
+			"type": "npm",
+			"script": "install",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"problemMatcher": [],
+		},
+		{
+			"label": "Qiita: 新しい記事を追加",
+			"detail": "Create new articles",
+			"type": "process",
+			"command": "npx",
+			"args": [
+				"qiita",
+				"new",
+				"${input:qiitaArticleBaseName}"
+			]
+		}
+	]
+}
