@@ -3,3 +3,9 @@ node_modules
 
 # Qiita CLI configuration (contains API token)
 .qiita-config/
+
+###############################################################################
+# Claude Code
+###############################################################################
+# Personal preferences and experimental settings that vary per developer
+.claude/settings.local.json
