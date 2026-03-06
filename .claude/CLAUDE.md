@@ -38,8 +38,19 @@ Qiita content management repository for managing and publishing technical articl
 
 ### CI/CD Workflow
 - **Proofreading workflow** (`proofreading.yml`): Runs textlint on PRs, provides review comments via reviewdog
-- **Publish workflow** (`publish.yml`): Automatically publishes articles to Qiita on main branch push
-- Requires `QIITA_TOKEN` secret configuration for publishing
+- **Publish workflow** (`publish.yml`): Automatically publishes articles to Qiita on main branch push, then creates PR for metadata updates
+- Requires `QIITA_TOKEN`, `APP_ID`, and `APP_PRIVATE_KEY` secrets (see `docs/development/github-workflows/github-app-setup.md`)
+
+#### Publishing Workflow Details
+The publish workflow uses a GitHub App to create pull requests for metadata synchronization:
+
+1. **Trigger**: Push to main branch with changes to `public/**.md` files
+2. **Publishing**: Articles are automatically published to Qiita
+3. **Metadata Sync**: A pull request is automatically created with updated article metadata (IDs, timestamps)
+4. **Manual Review**: PR should be reviewed and manually merged to sync repository with Qiita
+5. **Security**: GitHub App ensures commits are properly signed and follow repository rules
+
+**Important**: After merging a metadata sync PR, the repository will be fully synchronized with Qiita. These PRs are labeled with `automated` and created by `qiita-publisher[bot]`.
 
 ### Dependencies
 - `@qiita/qiita-cli`: Official Qiita CLI for article management
@@ -66,10 +77,18 @@ See docs/development/asset-management/README.md for detailed instructions.
 
 - All article content in Japanese, following Japanese technical writing conventions
 - textlint configuration optimized for Qiita Markdown extensions
-- Publishing to main branch is automated - be careful with direct pushes
+- Publishing to main branch triggers automated Qiita publication and PR creation for metadata sync
+- After publishing, review and merge the automatically created PR to sync metadata
 - Preview server runs on port 8888 by default (configurable in qiita.config.json)
 - Qiita Terms of Service: https://qiita.com/terms
 - Qiita Community Guidelines: https://help.qiita.com/ja/articles/qiita-community-guideline
 - Qiita Markdown syntax: https://qiita.com/Qiita/items/c686397e4a0f4f11683d
 - Qiita embeddable content: https://qiita.com/Qiita/items/612e2e149b9f9451c144
 - Qiita CLI: https://github.com/increments/qiita-cli
+
+## Workflow Setup
+
+For first-time setup or troubleshooting:
+- GitHub App setup: `docs/development/github-workflows/github-app-setup.md`
+- Publish workflow documentation: `docs/development/github-workflows/publish-workflow.md`
+- Required secrets: `QIITA_TOKEN`, `APP_ID`, `APP_PRIVATE_KEY`
