@@ -1,4 +1,10 @@
-# Ignore past articles before setup textlint
+# textlint導入前の、過去の記事については無視します
 public/5b74ea613c1acc44c118.md
 public/77470adaccf6bfb8e308.md
 public/a46409c83541e89aa41e.md
+
+# このリポジトリー上で作業するためのドキュメントについては無視します
+docs/*
+
+# Claude Codeの書いたものは無視します
+.claude/*

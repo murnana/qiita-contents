@@ -1,4 +1,5 @@
-# Please set 'QIITA_TOKEN' secret to your repository
+# Please set 'QIITA_TOKEN', 'APP_ID', and 'APP_PRIVATE_KEY' secrets to your repository
+# See docs/development/github-workflows/github-app-setup.md for GitHub App setup instructions
 name: Publish articles
 
 on:
@@ -10,7 +11,7 @@ on:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 permissions: {}
 
@@ -20,14 +21,90 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      pull-requests: write
     timeout-minutes: 5
     environment: production
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
           fetch-depth: 0
-      - uses: increments/qiita-cli/actions/publish@v1
+
+      - name: Generate GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@d72941d797fd3113feb6b93fd0dec494b13a2547 # v1
         with:
-          qiita-token: ${{ secrets.QIITA_TOKEN }}
-          root: "."
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '20'
+
+      - name: Install Qiita CLI
+        run: npm install -g @qiita/qiita-cli
+
+      - name: Publish articles to Qiita
+        env:
+          QIITA_TOKEN: ${{ secrets.QIITA_TOKEN }}
+        run: npx qiita publish --all
+
+      - name: Check for metadata changes
+        id: check
+        run: |
+          if git diff --quiet public/; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "変更なし: メタデータの更新はありませんでした"
+          else
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "変更あり: メタデータが更新されました"
+            git diff --stat public/
+          fi
+
+      - name: Create pull request for metadata updates
+        if: steps.check.outputs.has_changes == 'true'
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          git config user.name "qiita-publisher[bot]"
+          git config user.email "qiita-publisher[bot]@users.noreply.github.com"
+
+          BRANCH="automated/qiita-metadata-$(date +%Y%m%d-%H%M%S)"
+          git checkout -b "$BRANCH"
+          git add public/
+          git commit -m "Qiita 公開後のメタデータを更新
+
+          記事の公開により以下のメタデータが更新されました:
+          - 記事 ID (新規公開の場合)
+          - 更新日時
+
+          公開された記事: https://qiita.com/murnana"
+
+          git push origin "$BRANCH"
+
+          gh pr create \
+            --title "🔄 Qiita 記事メタデータの更新" \
+            --body "## 概要
+
+          Qiita への記事公開後、自動的にメタデータを同期しました。
+
+          ## 変更内容
+
+          - 記事の \`id\` フィールドを Qiita の記事 UUID で更新
+          - 記事の \`updated_at\` フィールドを更新
+
+          ## 確認事項
+
+          - メタデータのみの変更であることを確認してください
+          - 記事の内容に意図しない変更がないか確認してください
+          - 公開された記事: https://qiita.com/murnana
+
+          ## 注意
+
+          このプルリクエストは qiita-publisher bot により自動作成されました。
+          レビュー後、問題がなければマージしてください。" \
+            --base main \
+            --head "$BRANCH" \
+            --label "automated"

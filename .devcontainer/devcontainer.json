@@ -24,7 +24,8 @@
 		"vscode": {
 			"extensions": [
 				"yzhang.markdown-all-in-one",
-				"3w36zj6.textlint"
+				"3w36zj6.textlint",
+				"github.vscode-github-actions"
 			]
 		}
 	}
