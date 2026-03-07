@@ -86,6 +86,10 @@ See docs/development/asset-management/README.md for detailed instructions.
 - Qiita embeddable content: https://qiita.com/Qiita/items/612e2e149b9f9451c144
 - Qiita CLI: https://github.com/increments/qiita-cli
 
+## Rules
+
+- Commit conventions: `.claude/rules/commit.md`
+
 ## Workflow Setup
 
 For first-time setup or troubleshooting:
