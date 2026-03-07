@@ -1,10 +1,10 @@
 ---
 title: '[Unity] Webビルド時の設定「Code Optimization」について'
 tags:
-  - 'Unity'
+  - Unity
 private: false
-updated_at: ''
-id: null
+updated_at: '2026-03-07T09:36:22+09:00'
+id: 5c694b8e1aca39632407
 organization_url_name: null
 slide: false
 ignorePublish: false
