@@ -1,169 +1,169 @@
-# Qiita Contents Management
+# Qiita コンテンツ管理
 
-A content management repository for managing and publishing technical articles to Qiita using Qiita CLI. Articles are stored as Markdown files in the `public/` directory with Japanese text proofreading using textlint.
+Qiita CLI を使用してQiitaへ技術記事を管理・公開するためのコンテンツ管理リポジトリです。記事は `public/` ディレクトリにMarkdownファイルとして保存され、textlintによる日本語文章校正を行います。
 
-## Features
+## 特徴
 
-- 📝 Article management with Qiita CLI
-- 🔍 Japanese text proofreading with textlint
-- 🚀 Automated publishing to Qiita via GitHub Actions
-- 🐳 DevContainer support for consistent development environment
-- 📋 Pull request review automation with reviewdog
+- 📝 Qiita CLI による記事管理
+- 🔍 textlint による日本語文章校正
+- 🚀 GitHub Actions による Qiita への自動公開
+- 🐳 統一された開発環境のための DevContainer サポート
+- 📋 reviewdog によるプルリクエストレビュー自動化
 
-## Quick Start
+## クイックスタート
 
-### Prerequisites
+### 前提条件
 
-- Node.js (specified in `.devcontainer/devcontainer.json`)
-- Qiita account and API token
+- Node.js (`.devcontainer/devcontainer.json` で指定)
+- Qiita アカウントと API トークン
 
-### Installation
+### インストール
 
 ```bash
 npm ci
 ```
 
-### Qiita Authentication
+### Qiita 認証
 
 ```bash
 npx qiita login --credential ./.qiita-config/
 ```
 
-Authentication credentials will be automatically saved to `./.qiita-config/` and persist across DevContainer rebuilds.
+認証情報は `./.qiita-config/` に自動保存され、DevContainer の再ビルド後も維持されます。
 
-## Usage
+## 使い方
 
-### Article Management
+### 記事管理
 
 ```bash
-# Create a new article
-npx qiita new <filename>
+# 新しい記事を作成
+npx qiita new <ファイル名>
 
-# Preview articles locally (http://localhost:8888)
+# 記事をローカルでプレビュー (http://localhost:8888)
 npx qiita preview
 
-# Pull latest articles from Qiita
+# Qiita から最新の記事を取得
 npx qiita pull
 
-# Publish articles to Qiita
+# Qiita へ記事を公開
 npx qiita publish
 ```
 
-### Text Proofreading
+### 文章校正
 
 ```bash
-# Run textlint on all articles
+# すべての記事に textlint を実行
 npm test
 
-# Run textlint directly
+# textlint を直接実行
 npx textlint "./public/*.md"
 ```
 
-## Project Structure
+## プロジェクト構成
 
 ```
 qiita-contents/
-├── .github/workflows/     # CI/CD workflows
-│   ├── publish.yml       # Auto-publish to Qiita on main branch
-│   └── proofreading.yml  # PR text proofreading with reviewdog
-├── .devcontainer/        # DevContainer configuration
-├── assets/               # Article images and source files
-│   └── {article-slug}/
-│       ├── sources/      # Original editable assets
-│       └── images/       # Optimized publish-ready images
-├── docs/                 # Documentation
+├── .github/workflows/     # CI/CD ワークフロー
+│   ├── publish.yml       # main ブランチへの push 時に Qiita へ自動公開
+│   └── proofreading.yml  # reviewdog による PR 文章校正
+├── .devcontainer/        # DevContainer 設定
+├── assets/               # 記事の画像とソースファイル
+│   └── {記事スラッグ}/
+│       ├── sources/      # 編集可能な元のアセット
+│       └── images/       # 最適化済みの公開用画像
+├── docs/                 # ドキュメント
 │   └── development/
 │       └── asset-management/
-│           ├── README.md # Image management guide
-│           └── logs/     # Image upload logs
-├── public/               # Article content (Markdown files)
-├── .textlintrc          # textlint configuration
-├── qiita.config.json    # Qiita CLI configuration
-└── package.json         # Project dependencies
+│           ├── README.md # 画像管理ガイド
+│           └── logs/     # 画像アップロードログ
+├── public/               # 記事コンテンツ (Markdown ファイル)
+├── .textlintrc          # textlint 設定
+├── qiita.config.json    # Qiita CLI 設定
+└── package.json         # プロジェクト依存関係
 ```
 
-## Image Management
+## 画像管理
 
-Images are organized per-article in the `assets/` directory. Both source files and optimized images are tracked in Git.
+画像は `assets/` ディレクトリ内に記事ごとに整理されています。ソースファイルと最適化済み画像の両方が Git で管理されます。
 
-**Workflow:**
-1. Create source images (draw.io diagrams, screenshots) in `assets/{article-slug}/sources/`
-2. Optimize images using ffmpeg to `assets/{article-slug}/images/`
-3. Manually upload to Qiita via web interface
-4. Record upload info in `docs/development/asset-management/logs/{article-slug}.md`
-5. Reference returned Qiita URLs in article markdown
+**ワークフロー:**
+1. ソース画像（draw.io ダイアグラム、スクリーンショット）を `assets/{記事スラッグ}/sources/` に作成
+2. ffmpeg を使用して `assets/{記事スラッグ}/images/` へ画像を最適化
+3. Qiita の Web インターフェースから手動でアップロード
+4. アップロード情報を `docs/development/asset-management/logs/{記事スラッグ}.md` に記録
+5. 記事 Markdown 内で返却された Qiita URL を参照
 
-See [docs/development/asset-management/README.md](docs/development/asset-management/README.md) for detailed instructions.
+詳細は [docs/development/asset-management/README.md](docs/development/asset-management/README.md) を参照してください。
 
-## Article Format
+## 記事フォーマット
 
-Articles use YAML front matter for Qiita-specific metadata:
+記事は Qiita 固有のメタデータに YAML フロントマターを使用します:
 
 ```markdown
 ---
-title: "Article Title"
+title: "記事タイトル"
 emoji: "📝"
-type: "tech" # or "idea"
+type: "tech" # または "idea"
 topics: ["javascript", "nodejs"]
 published: false
 ---
 
-# Article Content
+# 記事コンテンツ
 
-Your article content goes here...
+記事の内容をここに書きます...
 ```
 
-## CI/CD Workflows
+## CI/CD ワークフロー
 
-### Proofreading Workflow
+### 文章校正ワークフロー
 
-- Triggered on pull requests
-- Runs textlint for Japanese text validation
-- Provides review comments via reviewdog
+- プルリクエスト時にトリガー
+- 日本語テキスト検証のため textlint を実行
+- reviewdog によるレビューコメントを提供
 
-### Publishing Workflow
+### 公開ワークフロー
 
-- Triggered on pushes to main branch
-- Automatically publishes articles to Qiita
-- Requires `QIITA_TOKEN` secret in repository settings
+- main ブランチへの push 時にトリガー
+- 記事を Qiita へ自動公開
+- リポジトリ設定に `QIITA_TOKEN` シークレットが必要
 
-## Text Linting Rules
+## テキスト lint ルール
 
-The project uses textlint with Japanese-specific presets:
+このプロジェクトは日本語固有のプリセットを使用した textlint を採用しています:
 
-- `textlint-rule-preset-japanese`: Basic Japanese grammar rules
-- `textlint-rule-preset-jtf-style`: JTF (Japan Technical Writers Association) style guide
-- `textlint-rule-preset-ja-technical-writing`: Technical writing rules for Japanese
-- Custom rules for Qiita-specific syntax (e.g., `:::details`)
+- `textlint-rule-preset-japanese`: 基本的な日本語文法ルール
+- `textlint-rule-preset-jtf-style`: JTF（日本テクニカルコミュニケーション協会）スタイルガイド
+- `textlint-rule-preset-ja-technical-writing`: 日本語技術文書ルール
+- Qiita 固有の構文（例: `:::details`）のカスタムルール
 
-## Development Environment
+## 開発環境
 
-This project includes a DevContainer configuration for consistent development across different machines. The container includes all necessary tools and extensions for content creation and editing.
+このプロジェクトには、異なるマシン間で統一された開発環境を実現するための DevContainer 設定が含まれています。コンテナにはコンテンツ作成・編集に必要なすべてのツールと拡張機能が含まれています。
 
-## Configuration Files
+## 設定ファイル
 
-- `.textlintrc`: textlint rules and settings
-- `qiita.config.json`: Qiita CLI configuration (preview server port, etc.)
-- `.devcontainer/devcontainer.json`: Development container setup
+- `.textlintrc`: textlint のルールと設定
+- `qiita.config.json`: Qiita CLI 設定（プレビューサーバーのポートなど）
+- `.devcontainer/devcontainer.json`: 開発コンテナのセットアップ
 
-## Contributing
+## コントリビューション
 
-1. Create a feature branch
-2. Write or edit articles in the `public/` directory
-3. Run `npm test` to check text quality
-4. Create a pull request
-5. Address any textlint issues highlighted by reviewdog
-6. Merge to main branch for automatic publication
+1. フィーチャーブランチを作成
+2. `public/` ディレクトリで記事を執筆・編集
+3. `npm test` で文章品質を確認
+4. プルリクエストを作成
+5. reviewdog が指摘した textlint の問題に対応
+6. main ブランチへマージすると自動公開
 
-## License
+## ライセンス
 
 MIT
 
-## Author
+## 作者
 
 Murnana
 
-## Repository
+## リポジトリ
 
 - GitHub: [murnana/qiita-contents](https://github.com/murnana/qiita-contents)
 - Issues: [GitHub Issues](https://github.com/murnana/qiita-contents/issues)
