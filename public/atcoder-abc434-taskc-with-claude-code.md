@@ -5,8 +5,8 @@ tags:
   - 'C#'
   - 'ClaudeCode'
 private: false
-updated_at: ''
-id: null
+updated_at: '2025-12-06T11:45:05+09:00'
+id: 814bbbdb06e3816c70f3
 organization_url_name: null
 slide: false
 ignorePublish: false
