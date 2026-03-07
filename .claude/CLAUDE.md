@@ -90,6 +90,7 @@ See docs/development/asset-management/README.md for detailed instructions.
 
 - Commit conventions: `.claude/rules/commit.md`
 - Proofreading: `.claude/rules/proofreading.md`
+- Pull requests: `.claude/rules/pull-request.md`
 
 ## Workflow Setup
 
