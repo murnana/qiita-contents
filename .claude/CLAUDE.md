@@ -89,6 +89,7 @@ See docs/development/asset-management/README.md for detailed instructions.
 ## Rules
 
 - Commit conventions: `.claude/rules/commit.md`
+- Proofreading: `.claude/rules/proofreading.md`
 
 ## Workflow Setup
 
