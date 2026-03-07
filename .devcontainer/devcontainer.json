@@ -25,7 +25,8 @@
 			"extensions": [
 				"yzhang.markdown-all-in-one",
 				"3w36zj6.textlint",
-				"github.vscode-github-actions"
+				"github.vscode-github-actions",
+				"anthropic.claude-code"
 			]
 		}
 	}
