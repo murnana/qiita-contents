@@ -18,7 +18,7 @@
   "devDependencies": {
     "@anthropic-ai/claude-code": "^2.1.53",
     "@qiita/qiita-cli": "^1.6.2",
-    "textlint": "^13.4.1",
+    "textlint": "^15.5.2",
     "textlint-filter-rule-allowlist": "^4.0.0",
     "textlint-filter-rule-comments": "^1.2.2",
     "textlint-rule-preset-ja-technical-writing": "^8.0.0",
