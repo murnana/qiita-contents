@@ -1,36 +1,22 @@
-// For format details, see https://aka.ms/devcontainer.json. For config options, see the
-// README at: https://github.com/devcontainers/templates/tree/main/src/typescript-node
 {
-	"name": "Node.js & TypeScript",
-	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "mcr.microsoft.com/devcontainers/typescript-node:1-20-bullseye",
-
-	// Persist Qiita CLI config across container rebuilds
-	"mounts": [
-		"source=${localWorkspaceFolder}/.qiita-config,target=/home/node/.config/qiita-cli,type=bind,consistency=cached"
-	],
-
-	// Features to add to the dev container. More info: https://containers.dev/features.
-	// "features": {},
-
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	"forwardPorts": [8888],
-
-	// Use 'postCreateCommand' to run commands after the container is created.
+	"name": "Qiita Contents",
+	"build": {
+		"dockerfile": "Dockerfile"
+	},
+	"features": {
+		// Claude Code — AI によるコーディング支援ツール
+		"ghcr.io/anthropics/devcontainer-features/claude-code:1.0": {}
+	},
 	"postCreateCommand": "npm install --save-dev",
-
-	// Configure tool-specific properties.
+	"remoteUser": "node",
 	"customizations": {
 		"vscode": {
 			"extensions": [
 				"yzhang.markdown-all-in-one",
-				"3w36zj6.textlint",
+				"Anthropic.claude-code",
 				"github.vscode-github-actions",
-				"anthropic.claude-code"
+				"GitHub.vscode-codeql"
 			]
 		}
 	}
-
-	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-	// "remoteUser": "root"
 }
