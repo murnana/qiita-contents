@@ -10,6 +10,7 @@ on:
       - 'package.json'
       - 'package-lock.json'
 
+
 # Only cancel in-progress jobs or runs for the current workflow
 concurrency: 
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -26,26 +27,21 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js environment
-        uses: actions/setup-node@v3.8.1
-        with:
-          node-version: 18
-
-      - name: Setup from package.json
-        run: npm ci 
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd #v6.0.2
 
       - name: Setup reviewdog
-        uses: reviewdog/action-setup@v1.0.6
+        uses: reviewdog/action-setup@d8a7baabd7f3e8544ee4dbde3ee41d0011c3a93f #v1.5.0
         with:
           reviewdog_version: latest
 
-      - name: Run lint
-        run: npx textlint -f checkstyle './public/*.md' >> .textlint.log
+      - name: Run Dev Container
+        uses: devcontainers/ci@b63b30de439b47a52267f241112c5b453b673db5 #v0.3.1900000449
+        with:
+          configFile: "./.devcontainer/devcontainer.json"
+          runCmd: npx textlint -f checkstyle './public/*.md' >> .textlint.log
 
       - name: Run reviewdog
         if: failure()
         env:
-          REVIEWDOG_GITHUB_API_TOKEN: ${{ github.token }}
-        run: cat .textlint.log  | reviewdog -f=checkstyle -name="textlint" -reporter="github-pr-review"
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: cat .textlint.log | reviewdog -f=checkstyle -name="textlint" -reporter="github-pr-review"
