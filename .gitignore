@@ -11,9 +11,3 @@ assets/**/.DS_Store
 
 # Ignore draw.io backup file
 *.drawio.bkp
-
-###############################################################################
-# Claude Code
-###############################################################################
-# Personal preferences and experimental settings that vary per developer
-.claude/settings.local.json
