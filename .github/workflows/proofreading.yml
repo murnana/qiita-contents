@@ -5,6 +5,7 @@ on:
     branches:
       - main
     paths:
+      - '.devcontainer/**'
       - '.github/workflows/proofreading.yml'
       - 'public/**.md'
       - 'package.json'
