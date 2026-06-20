@@ -32,7 +32,7 @@ jobs:
           fetch-depth: 0
 
       - name: Publish articles and sync metadata in Dev Container
-        uses: devcontainers/ci@b63b30de439b47a52267f241112c5b453b673db5 #v0.3.1900000449
+        uses: devcontainers/ci@513af61f4de4f75d37e4438f184ba4358f0fc1ca #v0.3.1900000450
         env:
           QIITA_TOKEN: ${{ secrets.QIITA_TOKEN }}
           # GH_TOKEN: ${{ steps.app-token.outputs.token }}
