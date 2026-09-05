@@ -1,8 +1,8 @@
 .remote
 node_modules
 
-# Qiita CLI configuration (contains API token)
-.qiita-config/
+# Enviroment valiables
+.env
 
 # Temporary image processing files
 assets/**/*.tmp
