@@ -25,11 +25,12 @@ npm ci
 
 ### Qiita 認証
 
-```bash
-npx qiita login --credential ./.qiita-config/
-```
+環境変数 `QIITA_TOKEN` を読み取ります。
+_.env_ ファイルに記載して使用してください。
 
-認証情報は `./.qiita-config/` に自動保存され、DevContainer の再ビルド後も維持されます。
+```.env
+QIITA_TOKEN=<Qittaアカウントから「アプリケーション」で発行したトークン>
+```
 
 ## 使い方
 
