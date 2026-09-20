@@ -1,17 +1,19 @@
 ---
 title: Qiita記事管理リポジトリーに、Claude Codeを入れてみた
 tags:
-  - Claude
-  - VSCode
-  - DevContainer
-  - QiitaCLI
   - AI
+  - VSCode
+  - devcontainer
+  - QiitaCLI
+  - Claude
 private: false
-updated_at: ''
+updated_at: '2026-09-20T13:58:59+09:00'
 id: 139153e443941490223f
 organization_url_name: null
 slide: false
 ignorePublish: false
+posting_campaign_uuid: null
+agreed_posting_campaign_term: false
 ---
 
 私はQiita記事をGitHubリポジトリーで管理しています。

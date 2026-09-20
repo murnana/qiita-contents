@@ -1,15 +1,17 @@
 ---
 title: AtCoder ABC434 C問題をClaude Codeと学ぶ
 tags:
-  - 'AtCoder'
-  - 'C#'
-  - 'ClaudeCode'
+  - C#
+  - AtCoder
+  - ClaudeCode
 private: false
-updated_at: '2025-12-06T11:45:05+09:00'
+updated_at: '2026-09-20T13:58:59+09:00'
 id: 814bbbdb06e3816c70f3
 organization_url_name: null
 slide: false
 ignorePublish: false
+posting_campaign_uuid: null
+agreed_posting_campaign_term: false
 ---
 
 元の問題はこちらです: [C - Flapping Takahashi](https://atcoder.jp/contests/abc434/tasks/abc434_c)
