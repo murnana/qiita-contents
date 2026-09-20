@@ -1,7 +1,7 @@
 .remote
 node_modules
 
-# Enviroment valiables
+# Enviroment file
 .env
 
 # Temporary image processing files
