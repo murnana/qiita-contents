@@ -8,6 +8,8 @@ id: 5c694b8e1aca39632407
 organization_url_name: null
 slide: false
 ignorePublish: false
+posting_campaign_uuid: null
+agreed_posting_campaign_term: false
 ---
 
 UnityでWebブラウザー向けのビルドを行う際、「Code Optimization」という項目があります。
