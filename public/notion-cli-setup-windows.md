@@ -1,10 +1,10 @@
 ---
 title: '[Notion CLI] Notion CLI を Windowsで使う準備'
 tags:
-  - 'Notion'
+  - Notion
 private: false
-updated_at: ''
-id: null
+updated_at: '2026-11-23T18:18:50+09:00'
+id: 4b4f797aa4bd34e62594
 organization_url_name: null
 slide: false
 ignorePublish: false
